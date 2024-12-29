@@ -5,6 +5,8 @@ import UserLogin from './pages/auth/UserLogin'
 import AdminDashboard from './pages/admin/Dashboard'
 import UserDashboard from './pages/user/Dashboard'
 import AdminSetup from './pages/setup/AdminSetup'
+import Home from './pages/blog/Home'
+import ArticleDetail from './pages/blog/ArticleDetail'
 import { useAuth } from './hooks/useAuth'
 
 function App() {
@@ -20,10 +22,14 @@ function App() {
 
   return (
     <Routes>
+      {/* Rotas públicas do blog */}
+      <Route path="/" element={<Home />} />
+      <Route path="/article/:id" element={<ArticleDetail />} />
+
       {/* Rota de setup */}
       <Route path="/setup" element={<AdminSetup />} />
 
-      {/* Rotas públicas */}
+      {/* Rotas de autenticação */}
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/login" element={<UserLogin />} />
 
@@ -36,9 +42,6 @@ function App() {
       <Route path="/dashboard/*" element={
         user ? <UserDashboard /> : <Navigate to="/login" />
       } />
-
-      {/* Redireciona para login apropriado */}
-      <Route path="/" element={<Navigate to="/login" />} />
     </Routes>
   )
 }
